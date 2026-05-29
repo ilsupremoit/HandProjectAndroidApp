@@ -75,15 +75,6 @@ class _ControlRoomScreenState extends State<ControlRoomScreen> {
     FingerControl('pinky', 'Mignolo', Icons.waving_hand_outlined),
   ];
 
-  static const List<GesturePreset> _presets = [
-    GesturePreset('open_hand', 'Mano aperta', Icons.back_hand_outlined),
-    GesturePreset('fist', 'Pugno', Icons.pan_tool),
-    GesturePreset('pinch', 'Pinza', Icons.gesture),
-    GesturePreset('ok', 'OK', Icons.check_circle_outline),
-    GesturePreset('peace', 'Peace', Icons.sign_language_outlined),
-    GesturePreset('simple_grip', 'Presa semplice', Icons.touch_app_outlined),
-  ];
-
   final TextEditingController _baseUrlController = TextEditingController(
     text: 'http://10.0.2.2:8000',
   );
@@ -325,37 +316,6 @@ class _ControlRoomScreenState extends State<ControlRoomScreen> {
             ),
             const SizedBox(height: 14),
             _Section(
-              title: 'Preset',
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: _presets.map((preset) {
-                  return SizedBox(
-                    width: MediaQuery.sizeOf(context).width > 440
-                        ? (MediaQuery.sizeOf(context).width - 52) / 2
-                        : double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: _sending
-                          ? null
-                          : () => _sendCommand({
-                              'command': 'gesture',
-                              'gestureName': preset.key,
-                            }),
-                      icon: Icon(preset.icon),
-                      label: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          preset.label,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            const SizedBox(height: 14),
-            _Section(
               title: 'Stato dita',
               child: Column(
                 children: [
@@ -465,14 +425,6 @@ class ApiClient {
 
 class FingerControl {
   const FingerControl(this.key, this.label, this.icon);
-
-  final String key;
-  final String label;
-  final IconData icon;
-}
-
-class GesturePreset {
-  const GesturePreset(this.key, this.label, this.icon);
 
   final String key;
   final String label;
